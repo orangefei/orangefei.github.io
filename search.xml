@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hello World</title>
-    <url>/2023/02/25/hello-world/</url>
+    <url>/2023/02/26/hello-world/</url>
     <content><![CDATA[<p>Welcome to <span class="exturl"><a class="exturl__link"   href="https://hexo.io/" >Hexo</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>! This is your very first post. Check <span class="exturl"><a class="exturl__link"   href="https://hexo.io/docs/" >documentation</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> for more info. If you get any problems when using Hexo, you can find the answer in <span class="exturl"><a class="exturl__link"   href="https://hexo.io/docs/troubleshooting.html" >troubleshooting</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> or you can ask me on <span class="exturl"><a class="exturl__link"   href="https://github.com/hexojs/hexo/issues" >GitHub</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>.</p>
 
         <h2 id="Quick-Start"   >
@@ -31,6 +31,10 @@
       <figure class="highlight bash"><div class="table-container"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></div></figure>
 
 <p>More info: <span class="exturl"><a class="exturl__link"   href="https://hexo.io/docs/one-command-deployment.html" >Deployment</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-]]></content>
+<p>categories:<br>    - [Linux]<br>    - [Linux, tools]<br>    - [Python,web]<br>    - [Database]</p>
+
+        <h1 id="上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类"   >
+          <a href="#上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类" class="heading-link"><i class="fas fa-link"></i></a><a href="#上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类" class="headerlink" title="上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类"></a>上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类</h1>
+      ]]></content>
   </entry>
 </search>
