@@ -31,10 +31,18 @@
       <figure class="highlight bash"><div class="table-container"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></div></figure>
 
 <p>More info: <span class="exturl"><a class="exturl__link"   href="https://hexo.io/docs/one-command-deployment.html" >Deployment</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>categories:<br>    - [Linux]<br>    - [Linux, tools]<br>    - [Python,web]<br>    - [Database]</p>
-
-        <h1 id="上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类"   >
-          <a href="#上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类" class="heading-link"><i class="fas fa-link"></i></a><a href="#上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类" class="headerlink" title="上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类"></a>上述分类为：java-note下有base、database两个子分类，而vue-note没有子分类</h1>
-      ]]></content>
+]]></content>
+  </entry>
+  <entry>
+    <title>title</title>
+    <url>/2023/02/26/title/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>tools</category>
+        <category>Python</category>
+        <category>web</category>
+        <category>Database</category>
+      </categories>
   </entry>
 </search>
