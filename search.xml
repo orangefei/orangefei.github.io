@@ -34,6 +34,13 @@
 ]]></content>
   </entry>
   <entry>
+    <title></title>
+    <url>/2023/02/27/shell%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<figure class="highlight python"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义网站域名和端口号信息</span></span><br><span class="line"><span class="comment">#WebName=&quot;hrss-main.wdeduc.com&quot;</span></span><br><span class="line">WebName=<span class="string">&quot;www.baidu.com&quot;</span></span><br><span class="line">Port=<span class="string">&quot;443&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 Openssl 工具获取到当前证书的到期时间</span></span><br><span class="line">Cert_END_Time=$(echo | openssl s_client -servername $&#123;WebName&#125; -connect $&#123;WebName&#125;:$&#123;Port&#125; <span class="number">2</span>&gt; /dev/null | openssl x509 -noout -dates | grep <span class="string">&#x27;After&#x27;</span> | awk -F <span class="string">&#x27;=&#x27;</span> <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> | awk <span class="string">&#x27;&#123;print $1,$2,$4&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将证书的到期时间转化成时间戳</span></span><br><span class="line">Cert_NED_TimeStamp=$(date +%s -d <span class="string">&quot;$Cert_END_Time&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义当前时间的时间戳</span></span><br><span class="line">Create_TimeStamp=$(date +%s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过计算获取到证书的剩余天数</span></span><br><span class="line">Rest_Time=$(expr $(expr $Cert_NED_TimeStamp - $Create_TimeStamp) / <span class="number">86400</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置告警提示信息</span></span><br><span class="line">echo <span class="string">&quot;$WebName  网站的 SSL 证书还有 $Rest_Time 天后到期idc&quot;</span> &gt; ssl-monitor.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义钉钉机器人的 API 接口</span></span><br><span class="line">WebHook=<span class="string">&#x27;https://oapi.dingtalk.com/robot/send?access_token=20e3ec13&amp;label=idc&amp;msg_type=markdown&#x27;</span></span><br><span class="line"><span class="comment">#idc关键字存放于echo里面才能触发告警</span></span><br><span class="line"><span class="comment"># 通过 Curl 命令来发送 Post 请求</span></span><br><span class="line">curl <span class="string">&quot;$&#123;WebHook&#125;&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d <span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    &quot;msgtype&quot;: &quot;text&quot;,</span></span><br><span class="line"><span class="string">    &quot;text&quot;: &#123; </span></span><br><span class="line"><span class="string">        &quot;content&quot;: &quot;告警通知&#x27;</span><span class="string">&quot;$(cat ssl-monitor.txt)&quot;</span><span class="string">&#x27;&quot;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> &amp;&gt; ssl_check.log                    </span><br></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  <entry>
     <title>title</title>
     <url>/2023/02/26/title/</url>
     <content><![CDATA[]]></content>
@@ -46,41 +53,12 @@
       </categories>
   </entry>
   <entry>
-    <title>网站相关的告警</title>
-    <url>/2023/02/27/%E7%BD%91%E7%AB%99%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%8A%E8%AD%A6/</url>
-    <content><![CDATA[<p>监控ssl证书到期时间<br>#!&#x2F;bin&#x2F;bash</p>
+    <title>统计ssl证书到期时间</title>
+    <url>/2023/02/27/%E7%BD%91%E7%AB%99%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%8A%E8%AD%A6_%E5%89%AF%E6%9C%AC/</url>
+    <content><![CDATA[<figure class="highlight python"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义网站域名和端口号信息</span></span><br><span class="line"><span class="comment">#WebName=&quot;hrss-main.wdeduc.com&quot;</span></span><br><span class="line">WebName=<span class="string">&quot;www.baidu.com&quot;</span></span><br><span class="line">Port=<span class="string">&quot;443&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 Openssl 工具获取到当前证书的到期时间</span></span><br><span class="line">Cert_END_Time=$(echo | openssl s_client -servername $&#123;WebName&#125; -connect $&#123;WebName&#125;:$&#123;Port&#125; <span class="number">2</span>&gt; /dev/null | openssl x509 -noout -dates | grep <span class="string">&#x27;After&#x27;</span> | awk -F <span class="string">&#x27;=&#x27;</span> <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> | awk <span class="string">&#x27;&#123;print $1,$2,$4&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将证书的到期时间转化成时间戳</span></span><br><span class="line">Cert_NED_TimeStamp=$(date +%s -d <span class="string">&quot;$Cert_END_Time&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义当前时间的时间戳</span></span><br><span class="line">Create_TimeStamp=$(date +%s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过计算获取到证书的剩余天数</span></span><br><span class="line">Rest_Time=$(expr $(expr $Cert_NED_TimeStamp - $Create_TimeStamp) / <span class="number">86400</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置告警提示信息</span></span><br><span class="line">echo <span class="string">&quot;$WebName  网站的 SSL 证书还有 $Rest_Time 天后到期idc&quot;</span> &gt; ssl-monitor.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义钉钉机器人的 API 接口</span></span><br><span class="line">WebHook=<span class="string">&#x27;https://oapi.dingtalk.com/robot/send?access_token=20e3ec13&amp;label=idc&amp;msg_type=markdown&#x27;</span></span><br><span class="line"><span class="comment">#idc关键字存放于echo里面才能触发告警</span></span><br><span class="line"><span class="comment"># 通过 Curl 命令来发送 Post 请求</span></span><br><span class="line">curl <span class="string">&quot;$&#123;WebHook&#125;&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d <span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    &quot;msgtype&quot;: &quot;text&quot;,</span></span><br><span class="line"><span class="string">    &quot;text&quot;: &#123; </span></span><br><span class="line"><span class="string">        &quot;content&quot;: &quot;告警通知&#x27;</span><span class="string">&quot;$(cat ssl-monitor.txt)&quot;</span><span class="string">&#x27;&quot;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> &amp;&gt; ssl_check.log                    </span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="定义网站域名和端口号信息"   >
-          <a href="#定义网站域名和端口号信息" class="heading-link"><i class="fas fa-link"></i></a><a href="#定义网站域名和端口号信息" class="headerlink" title="定义网站域名和端口号信息"></a>定义网站域名和端口号信息</h1>
-      <p>#WebName&#x3D;”hrss-main.wdeduc.com”<br>WebName&#x3D;”<span class="exturl"><a class="exturl__link"   href="http://www.baidu.com/" >www.baidu.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>“<br>Port&#x3D;”443”</p>
 
-        <h1 id="通过-Openssl-工具获取到当前证书的到期时间"   >
-          <a href="#通过-Openssl-工具获取到当前证书的到期时间" class="heading-link"><i class="fas fa-link"></i></a><a href="#通过-Openssl-工具获取到当前证书的到期时间" class="headerlink" title="通过 Openssl 工具获取到当前证书的到期时间"></a>通过 Openssl 工具获取到当前证书的到期时间</h1>
-      <p>Cert_END_Time&#x3D;$(echo | openssl s_client -servername ${WebName} -connect ${WebName}:${Port} 2&gt; &#x2F;dev&#x2F;null | openssl x509 -noout -dates | grep ‘After’ | awk -F ‘&#x3D;’ ‘{print $2}’ | awk ‘{print $1,$2,$4}’)</p>
 
-        <h1 id="将证书的到期时间转化成时间戳"   >
-          <a href="#将证书的到期时间转化成时间戳" class="heading-link"><i class="fas fa-link"></i></a><a href="#将证书的到期时间转化成时间戳" class="headerlink" title="将证书的到期时间转化成时间戳"></a>将证书的到期时间转化成时间戳</h1>
-      <p>Cert_NED_TimeStamp&#x3D;$(date +%s -d “$Cert_END_Time”)</p>
-
-        <h1 id="定义当前时间的时间戳"   >
-          <a href="#定义当前时间的时间戳" class="heading-link"><i class="fas fa-link"></i></a><a href="#定义当前时间的时间戳" class="headerlink" title="定义当前时间的时间戳"></a>定义当前时间的时间戳</h1>
-      <p>Create_TimeStamp&#x3D;$(date +%s)</p>
-
-        <h1 id="通过计算获取到证书的剩余天数"   >
-          <a href="#通过计算获取到证书的剩余天数" class="heading-link"><i class="fas fa-link"></i></a><a href="#通过计算获取到证书的剩余天数" class="headerlink" title="通过计算获取到证书的剩余天数"></a>通过计算获取到证书的剩余天数</h1>
-      <p>Rest_Time&#x3D;$(expr $(expr $Cert_NED_TimeStamp - $Create_TimeStamp) &#x2F; 86400)</p>
-
-        <h1 id="配置告警提示信息"   >
-          <a href="#配置告警提示信息" class="heading-link"><i class="fas fa-link"></i></a><a href="#配置告警提示信息" class="headerlink" title="配置告警提示信息"></a>配置告警提示信息</h1>
-      <p>echo “$WebName  网站的 SSL 证书还有 $Rest_Time 天后到期idc” &gt; ssl-monitor.txt</p>
-
-        <h1 id="定义钉钉机器人的-API-接口"   >
-          <a href="#定义钉钉机器人的-API-接口" class="heading-link"><i class="fas fa-link"></i></a><a href="#定义钉钉机器人的-API-接口" class="headerlink" title="定义钉钉机器人的 API 接口"></a>定义钉钉机器人的 API 接口</h1>
-      <p>WebHook&#x3D;’<span class="exturl"><a class="exturl__link"   href="https://oapi.dingtalk.com/robot/send?access_token=20e3ec13&label=idc&msg_type=markdown" >https://oapi.dingtalk.com/robot/send?access_token=20e3ec13&amp;label=idc&amp;msg_type=markdown</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>‘<br>#idc关键字存放于echo里面才能触发告警</p>
-
-        <h1 id="通过-Curl-命令来发送-Post-请求"   >
-          <a href="#通过-Curl-命令来发送-Post-请求" class="heading-link"><i class="fas fa-link"></i></a><a href="#通过-Curl-命令来发送-Post-请求" class="headerlink" title="通过 Curl 命令来发送 Post 请求"></a>通过 Curl 命令来发送 Post 请求</h1>
-      <p>curl “${WebHook}” -H ‘Content-Type: application&#x2F;json’ -d ‘<br>{<br>    “msgtype”: “text”,<br>    “text”: {<br>        “content”: “告警通知’”$(cat ssl-monitor.txt)”‘“<br>    }<br>}’ &amp;&gt; ssl_check.log                   </p>
 ]]></content>
       <categories>
         <category>Linux</category>
