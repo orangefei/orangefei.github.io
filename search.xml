@@ -44,13 +44,12 @@
         <category>web</category>
         <category>Database</category>
       </categories>
-  </entry>
-  <entry>
-    <title>webmonitor</title>
-    <url>/2023/02/27/webmonitor_%E5%89%AF%E6%9C%AC/</url>
-    <content><![CDATA[]]></content>
       <tags>
-        <tag>监控</tag>
+        <tag>linux</tag>
+        <tag>mysql</tag>
+        <tag>shell</tag>
+        <tag>python</tag>
+        <tag>tools</tag>
       </tags>
   </entry>
 </search>
