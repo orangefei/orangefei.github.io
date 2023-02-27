@@ -34,28 +34,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>shell</title>
-    <url>/2023/02/27/shell-1/</url>
-    <content><![CDATA[
-        <h2 id="typora-root-url-x2F-x2F-img"   >
-          <a href="#typora-root-url-x2F-x2F-img" class="heading-link"><i class="fas fa-link"></i></a><a href="#typora-root-url-x2F-x2F-img" class="headerlink" title="typora-root-url: ..&#x2F;..&#x2F;img"></a>typora-root-url: ..&#x2F;..&#x2F;img</h2>
-      <hr>
-<p><img src="/"></p>
-<p>这个是我第一个博客</p>
-
-        <h2 id="date-2023-02-27-15-59-07tags"   >
-          <a href="#date-2023-02-27-15-59-07tags" class="heading-link"><i class="fas fa-link"></i></a><a href="#date-2023-02-27-15-59-07tags" class="headerlink" title="date: 2023-02-27 15:59:07tags: "></a>date: 2023-02-27 15:59:07<br>tags: </h2>
-      ]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/02/27/shell/</url>
-    <content><![CDATA[<hr>
-<p><img src="/"></p>
-<p>这个是我第一个博客</p>
-]]></content>
-  </entry>
-  <entry>
     <title>title</title>
     <url>/2023/02/26/title/</url>
     <content><![CDATA[]]></content>
@@ -66,5 +44,49 @@
         <category>web</category>
         <category>Database</category>
       </categories>
+  </entry>
+  <entry>
+    <title>网站相关的告警</title>
+    <url>/2023/02/27/%E7%BD%91%E7%AB%99%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%8A%E8%AD%A6/</url>
+    <content><![CDATA[<p>监控ssl证书到期时间<br>#!&#x2F;bin&#x2F;bash</p>
+
+        <h1 id="定义网站域名和端口号信息"   >
+          <a href="#定义网站域名和端口号信息" class="heading-link"><i class="fas fa-link"></i></a><a href="#定义网站域名和端口号信息" class="headerlink" title="定义网站域名和端口号信息"></a>定义网站域名和端口号信息</h1>
+      <p>#WebName&#x3D;”hrss-main.wdeduc.com”<br>WebName&#x3D;”<span class="exturl"><a class="exturl__link"   href="http://www.baidu.com/" >www.baidu.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>“<br>Port&#x3D;”443”</p>
+
+        <h1 id="通过-Openssl-工具获取到当前证书的到期时间"   >
+          <a href="#通过-Openssl-工具获取到当前证书的到期时间" class="heading-link"><i class="fas fa-link"></i></a><a href="#通过-Openssl-工具获取到当前证书的到期时间" class="headerlink" title="通过 Openssl 工具获取到当前证书的到期时间"></a>通过 Openssl 工具获取到当前证书的到期时间</h1>
+      <p>Cert_END_Time&#x3D;$(echo | openssl s_client -servername ${WebName} -connect ${WebName}:${Port} 2&gt; &#x2F;dev&#x2F;null | openssl x509 -noout -dates | grep ‘After’ | awk -F ‘&#x3D;’ ‘{print $2}’ | awk ‘{print $1,$2,$4}’)</p>
+
+        <h1 id="将证书的到期时间转化成时间戳"   >
+          <a href="#将证书的到期时间转化成时间戳" class="heading-link"><i class="fas fa-link"></i></a><a href="#将证书的到期时间转化成时间戳" class="headerlink" title="将证书的到期时间转化成时间戳"></a>将证书的到期时间转化成时间戳</h1>
+      <p>Cert_NED_TimeStamp&#x3D;$(date +%s -d “$Cert_END_Time”)</p>
+
+        <h1 id="定义当前时间的时间戳"   >
+          <a href="#定义当前时间的时间戳" class="heading-link"><i class="fas fa-link"></i></a><a href="#定义当前时间的时间戳" class="headerlink" title="定义当前时间的时间戳"></a>定义当前时间的时间戳</h1>
+      <p>Create_TimeStamp&#x3D;$(date +%s)</p>
+
+        <h1 id="通过计算获取到证书的剩余天数"   >
+          <a href="#通过计算获取到证书的剩余天数" class="heading-link"><i class="fas fa-link"></i></a><a href="#通过计算获取到证书的剩余天数" class="headerlink" title="通过计算获取到证书的剩余天数"></a>通过计算获取到证书的剩余天数</h1>
+      <p>Rest_Time&#x3D;$(expr $(expr $Cert_NED_TimeStamp - $Create_TimeStamp) &#x2F; 86400)</p>
+
+        <h1 id="配置告警提示信息"   >
+          <a href="#配置告警提示信息" class="heading-link"><i class="fas fa-link"></i></a><a href="#配置告警提示信息" class="headerlink" title="配置告警提示信息"></a>配置告警提示信息</h1>
+      <p>echo “$WebName  网站的 SSL 证书还有 $Rest_Time 天后到期idc” &gt; ssl-monitor.txt</p>
+
+        <h1 id="定义钉钉机器人的-API-接口"   >
+          <a href="#定义钉钉机器人的-API-接口" class="heading-link"><i class="fas fa-link"></i></a><a href="#定义钉钉机器人的-API-接口" class="headerlink" title="定义钉钉机器人的 API 接口"></a>定义钉钉机器人的 API 接口</h1>
+      <p>WebHook&#x3D;’<span class="exturl"><a class="exturl__link"   href="https://oapi.dingtalk.com/robot/send?access_token=20e3ec13&label=idc&msg_type=markdown" >https://oapi.dingtalk.com/robot/send?access_token=20e3ec13&amp;label=idc&amp;msg_type=markdown</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>‘<br>#idc关键字存放于echo里面才能触发告警</p>
+
+        <h1 id="通过-Curl-命令来发送-Post-请求"   >
+          <a href="#通过-Curl-命令来发送-Post-请求" class="heading-link"><i class="fas fa-link"></i></a><a href="#通过-Curl-命令来发送-Post-请求" class="headerlink" title="通过 Curl 命令来发送 Post 请求"></a>通过 Curl 命令来发送 Post 请求</h1>
+      <p>curl “${WebHook}” -H ‘Content-Type: application&#x2F;json’ -d ‘<br>{<br>    “msgtype”: “text”,<br>    “text”: {<br>        “content”: “告警通知’”$(cat ssl-monitor.txt)”‘“<br>    }<br>}’ &amp;&gt; ssl_check.log                   </p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>监控</tag>
+      </tags>
   </entry>
 </search>
