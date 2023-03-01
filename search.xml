@@ -61,6 +61,16 @@
       </tags>
   </entry>
   <entry>
+    <title>nginxupstream</title>
+    <url>/2023/03/01/nginxupstream/</url>
+    <content><![CDATA[<figure class="highlight python"><div class="table-container"><table><tr><td class="code"><pre><span class="line">nginx负载均衡的三种方式主要是轮询模式、weight权重模式、ip_hash。</span><br><span class="line">当一台服务器的单位时间内的访问量越大时，服务器压力就越大，大到超过自身承受能力时，服务器就会崩溃。为了避免服务器崩溃，让用户有更好的体验，我们通过负载均衡的方式来分担服务器压力。</span><br><span class="line"><span class="number">1</span>、轮询模式（默认） </span><br><span class="line">每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。</span><br><span class="line">适合服务器配置相当，无状态且短平快的服务使用。也适用于图片服务器集群和纯静态页面服务器集群。</span><br><span class="line"><span class="number">2</span>、weight权重模式</span><br><span class="line">这种方式比较灵活，当后端服务器性能存在差异的时候，通过配置权重，可以让服务器的性能得到充分发挥，有效利用资源。weight和访问比率成正比，用于后端服务器性能不均的情况。权重越高，在被访问的概率越大</span><br><span class="line"><span class="number">3</span>、ip_hash</span><br><span class="line">上述weight权重模式方式存在一个问题，在负载均衡系统中，假如用户在某台服务器上登录了，那么该用户第二次请求的时候，因为我们是负载均衡系统，每次请求都会重新定位到服务器集群中的某一个，那么已经登录某一个服务器的用户再重新定位到另一个服务器，其登录信息将会丢失，这样显然是不妥的。</span><br><span class="line">可以采用ip_hash指令解决这个问题，如果客户已经访问了某个服务器，当用户再次访问时，会将该请求通过哈希算法，自动定位到该服务器。</span><br><span class="line">每个请求按访问ip的<span class="built_in">hash</span>结果分配，这样每个访客固定访问一个后端服务器，可以解决session不能跨服务器的问题。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Nginx只有当有访问时后，才发起对后端节点探测。如果本次请求中，节点正好出现故障，Nginx依然将请求转交给故障的节点,然后再转交给健康的节点处理。</span><br><span class="line">所以不会影响到这次请求的正常进行。但是会影响效率,因为多了一次转发,而且自带模块无法做到预警。</span><br><span class="line">nginx主动检查</span><br><span class="line">主动地健康检查，nignx定时主动地去ping后端的服务列表，当发现某服务出现异常时，把该服务从健康列表中移除，当发现某服务恢复时，又能够将该服务加回健康列表中。</span><br><span class="line">淘宝有一个开源的实现nginx_upstream_check_module模块</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+]]></content>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>title</title>
     <url>/2023/02/26/title/</url>
     <content><![CDATA[]]></content>
